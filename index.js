@@ -1,32 +1,40 @@
-var hasOwnProp = Object.prototype.hasOwnProperty;
+(function (global, factory) {
+    'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+    typeof define === 'function' && define.amd ? define(factory) :
+    global.deepli = factory()
+}(this, (function () {
+    'use strict';
+    var hasOwnProp = Object.prototype.hasOwnProperty;
 
-module.exports = deep;
-
-function deep (obj, path, value) {
-  if (arguments.length === 3) return set.apply(null, arguments);
-  return get.apply(null, arguments);
-}
-
-function get (obj, path) {
-  var keys = path.split('.');
-  for (var i = 0; i < keys.length; i++) {
-    var key = keys[i];
-    if (!obj || !hasOwnProp.call(obj, key)) {
-      obj = undefined;
-      break;
+    function deep (obj, path, value) {
+        if (arguments.length === 3) return set.apply(null, arguments);
+        return get.apply(null, arguments);
     }
-    obj = obj[key];
-  }
-  return obj;
-}
 
-function set (obj, path, value) {
-  var keys = path.split('.');
-  for (var i = 0; i < keys.length - 1; i++) {
-    var key = keys[i];
-    if (deep.p && !hasOwnProp.call(obj, key)) obj[key] = {};
-    obj = obj[key];
-  }
-  obj[keys[i]] = value;
-  return value;
-}
+    function get (obj, path) {
+        var keys = path.split('.');
+        for (var i = 0; i < keys.length; i++) {
+            var key = keys[i];
+            if (!obj || !hasOwnProp.call(obj, key)) {
+                obj = undefined;
+                break;
+            }
+            obj = obj[key];
+        }
+        return obj;
+    }
+
+    function set (obj, path, value) {
+        var keys = path.split('.');
+        for (var i = 0; i < keys.length - 1; i++) {
+            var key = keys[i];
+            if (deep.p && !hasOwnProp.call(obj, key)) obj[key] = {};
+            obj = obj[key];
+        }
+        obj[keys[i]] = value;
+        return value;
+    }
+
+  return deep;
+})));
