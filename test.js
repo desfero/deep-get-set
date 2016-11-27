@@ -107,21 +107,3 @@ test('deep sets on existing object', function (t) {
 
     t.end();
 });
-
-test('deep deletes', function (t) {
-  var obj = {
-    foo: 'bar',
-    bar: {
-      baz: {
-        beep: 'boop'
-      }
-    }
-  };
-
-  t.equal(deep(obj, 'foo', undefined), undefined);
-  t.notOk(obj.foo);
-  t.equal(deep(obj, 'bar.baz', undefined), undefined);
-  t.notOk(obj.bar.baz);
-  t.equal(deep(obj, 'bar.baz.beep'), undefined);
-  t.end();
-});
