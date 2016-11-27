@@ -1,7 +1,7 @@
 {
   "name": "deeppi",
   "description": "Set and get values on objects via dot-notation or array notation strings.",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/desfero/deeppi"
