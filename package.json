@@ -1,6 +1,6 @@
 {
-  "name": "deep-get-set",
-  "description": "Set and get values on objects via dot-notation strings.",
+  "name": "deeppi",
+  "description": "Set and get values on objects via dot-notation or array notation strings.",
   "version": "1.0.0",
   "repository": {
     "type": "git",

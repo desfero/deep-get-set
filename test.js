@@ -3,19 +3,59 @@ var deep = require('./');
 
 test('deep gets', function (t) {
     var obj = {
-        foo: 'bar',
+        foo: 'qux',
+        bar: 'baz'
+    };
+    t.equal(deep(obj, 'foo'), 'qux');
+    t.equal(obj.bar, 'baz');
+
+    obj = {
         bar: {
             baz: {
                 beep: 'boop'
             }
-        },
-        quz: ['yeey', { foo: 'yeah'}]
+        }
     };
-
-    t.equal(deep(obj, 'foo'), 'bar');
     t.equal(deep(obj, 'bar.baz.beep'), 'boop');
+
+    obj = {
+        quz: ['yeey']
+    };
     t.equal(deep(obj, 'quz.0'), 'yeey');
-    t.equal(deep(obj, 'quz[1].foo'), 'yeah');
+    t.equal(deep(obj, 'quz[0]'), 'yeey');
+
+    obj = {
+        quz: {
+            2: 'yaay'
+        }
+    };
+    t.equal(deep(obj, 'quz.2'), 'yaay');
+    t.equal(deep(obj, 'quz[2]'), 'yaay');
+
+    obj = {
+        quz: {
+            1: {
+                foo: 'baz'
+            }
+        }
+    };
+    t.equal(deep(obj, 'quz[1].foo'), 'baz');
+
+    obj = [[undefined, [undefined, undefined, [undefined, undefined, undefined, 'yaay']]]];
+    t.equal(deep(obj, '[0][1][2][3]'), 'yaay');
+
+    obj = {
+        0: {
+            1: {
+                2: {
+                    3: 'yaay'
+                }
+            }
+        }
+    };
+    t.equal(deep(obj, '0.1.2.3'), 'yaay');
+
+    obj = {};
     t.equal(deep(obj, 'bar.baz.beep.yep.nope'), undefined);
     t.end();
 });

@@ -13,7 +13,7 @@
 
     function get (obj, path) {
         var keys = prepareKeys(path)
-                    .map(function(key) { return key.name });
+                    .map(function (key) { return key.name });
         for (var i = 0; i < keys.length; i++) {
             var key = keys[i];
             if (!obj || !hasOwnProp.call(obj, key)) {
@@ -53,7 +53,7 @@
         var match = regExp.exec(key), subMatch;
 
         if (match !== null) {
-            var matchArray = match.slice(2).map(function(key) {
+            var matchArray = match.slice(2).map(function (key) {
                 return {
                     name: key,
                     isArray: true
@@ -61,7 +61,7 @@
             });
 
             while ((subMatch = regExp.exec(key)) !== null) {
-                matchArray = matchArray.concat(subMatch.slice(2).map(function(key) {
+                matchArray = matchArray.concat(subMatch.slice(2).map(function (key) {
                     return {
                         name: key,
                         isArray: true
