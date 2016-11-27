@@ -1,35 +1,43 @@
-# deep-get-set
+# deeppi
 
-Set and get values on objects via dot-notation strings.
-
-[![testling badge](https://ci.testling.com/acstll/deep-get-set.png)](https://ci.testling.com/acstll/deep-get-set)
+Set and get values on objects via dot-notation strings or array notation.
 
 ## Example
 
 ```js
-var deep = require('deep-get-set');
+var deep = require('deeppi');
 
 var obj = {
   foo: {
     bar: 'baz'
+    qux: ['quix']
   }
 };
 
 // Get
 console.log(deep(obj, 'foo.bar'));
   // => "baz"
+  
+// Get
+console.log(deep(obj, 'foo.qux[0]'));
+  // => "quix"
 
 // Set
 deep(obj, 'foo.bar', 'hello');
 console.log(obj.foo.bar);
   // => "hello"
+  
+// Set
+  deep(obj, 'foo.qux[1]', 'baz');
+  console.log(obj.foo.qux[1]);
+    // => "baz"
 ```
 
 ## API
 
 ### deep(object, path[, value])
 
-Where `path` is a dot-notation string `foo.bar`.
+Where `path` is a dot-notation string `foo.bar` or array notation string `foo[0]`.
 
 - If `value` is passed it will be set on the path.
 - Set `deep.p = true` if you want non-existent paths to be initialized.
@@ -40,19 +48,14 @@ Where `path` is a dot-notation string `foo.bar`.
 With [npm](https://npmjs.org) do:
 
 ```bash
-npm install deep-get-set
+npm install deeppi
 ```
 
 ## Note
 
 There's a dozen modules like this on [npm](https://npmjs.org).
-This is a fork from [@juliangruber's](https://github.com/juliangruber) [deep-access](https://github.com/juliangruber/deep-access) module, with a big portion of code directly copied from here: https://github.com/substack/js-traverse/blob/master/index.js#L11-L18.
+This is a fork from [@acstll's](https://github.com/acstll) [deep-get-set](https://github.com/acstll/deep-get-set) module, with additional array notation access 
 
-Similar modules:
-
-- https://github.com/deoxxa/dotty (this one I like because it uses recursion)
-- https://github.com/Ntran013/dot-access (pretty much the same as this)
-- https://github.com/substack/js-traverse (much more complex and useful)
 
 ## License
 
