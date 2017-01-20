@@ -30,8 +30,9 @@
 
         for(var i = 0; i < keys.length - 1; ++i) {
             var key = keys[i];
+            var isOwnProperty = hasOwnProp.call(obj, key.name);
 
-            if(!hasOwnProp.call(obj, key.name)) {
+            if(!isOwnProperty || (isOwnProperty && obj[key.name] == null)) {
                 obj[key.name] = (i < keys.length - 1) && keys[i+1].isArray ? [] : {};
             }
 

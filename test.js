@@ -85,25 +85,41 @@ test('deep sets on empty object', function (t) {
 });
 
 test('deep sets on existing object', function (t) {
-    var obj = {
-        bar: {
-            baz: 'foo'
-        },
-        foo: [1, 2],
-        quix: []
+  var obj = {
+    bar: {
+      baz: 'foo'
+    },
+    foo: [1, 2],
+    quix: []
+  };
 
-    };
+  t.equal(deep(obj, 'bar.qux', 'quix'), 'quix');
+  t.equal(obj.bar.baz, 'foo');
+  t.equal(obj.bar.qux, 'quix');
 
-    t.equal(deep(obj, 'bar.qux', 'quix'), 'quix');
-    t.equal(obj.bar.baz, 'foo');
-    t.equal(obj.bar.qux, 'quix');
+  t.equal(deep(obj, 'foo[2]', 3), 3);
+  t.equal(obj.foo[0], 1);
+  t.equal(obj.foo[1], 2);
+  t.equal(obj.foo[2], 3);
 
-    t.equal(deep(obj, 'foo[2]', 3), 3);
-    t.equal(obj.foo[1], 2);
-    t.equal(obj.foo[2], 3);
+  t.equal(deep(obj, 'quix[1].bar', 'baz'), 'baz');
+  t.equal(obj.quix[1].bar, 'baz');
 
-    t.equal(deep(obj, 'quix[1].bar', 'baz'), 'baz');
-    t.equal(obj.quix[1].bar, 'baz');
+  t.end();
+});
 
-    t.end();
+
+test('deep sets on null and undefined own objects', function (t) {
+  var obj = {
+    foo: null,
+    bar: undefined
+  };
+
+  t.equal(deep(obj, 'foo.quz', 'quix'), 'quix');
+  t.equal(obj.foo.quz, 'quix');
+
+  t.equal(deep(obj, 'bar.qux', 'quix'), 'quix');
+  t.equal(obj.bar.qux, 'quix');
+
+  t.end();
 });
